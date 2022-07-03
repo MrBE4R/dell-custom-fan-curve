@@ -1,0 +1,18 @@
+[HOSTCONFIG]
+Host = 1.2.3.4
+Username = admin
+Password = admin
+
+[FANCONTROL]
+; Format is Temp = Speed Percentage
+default = 20
+40 = 20
+45 = 30
+50 = 40
+60 = 80
+70 = 95
+
+[DRIVE]
+; This is used to temporarly override fan speed if drive temp is too high
+; Format is Drive name (eg. sda) = Max temp (default 50 °C)
+sda = 50
