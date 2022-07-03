@@ -8,7 +8,9 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-This project has been tested on Rocky Linux 8.6 with Python 3.6.8.
+This project has been tested on :
+ - Rocky Linux 8.6 with Python 3.6.8.
+ - TrueNAS-SCALE 22.02.2 with Python 3.9.2
 
 You will need to install `ipmitool` and `smartmontools`.
 
