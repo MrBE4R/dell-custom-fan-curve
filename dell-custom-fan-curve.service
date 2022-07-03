@@ -1,9 +1,12 @@
 [Unit]
 Description=Custom fan curve for Dell PowerEdge Server
+StartLimitIntervalSec=2
 
 [Service]
 ExecStart=/usr/bin/python3 /opt/dell-custom-fan-curve/dell-custom-fan-curve.py
 WorkingDirectory=/opt/dell-custom-fan-curve
+Restart=always
+RestartSec=15
 
 [Install]
 WantedBy=multi-user.target
