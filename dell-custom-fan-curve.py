@@ -76,7 +76,7 @@ while True:
                     _speed = fan_speed[1]
     logging.info('Done.')
 
-    logging.info('Server is at %(max_temp)s [System : %sys_temp)s | Disk : %(disk_temp)s]. Setting fan speed to %(_speed)s percent.' % {'max_temp': str(max_temp), '_speed': str(_speed), 'disk_temp': str(disk_temp), 'sys_temp': str(sys_temp)})
+    logging.info('Server is at %(max_temp)s °C [System : %(sys_temp)s °C | Disk : %(disk_temp)s °C]. Setting fan speed to %(_speed)s percent.' % {'max_temp': str(max_temp), '_speed': str(_speed), 'disk_temp': str(disk_temp), 'sys_temp': str(sys_temp)})
     cmd_set_fan_speed = ['/usr/bin/ipmitool', '-I', 'lanplus', '-U', username, '-P', password, '-H', host, 'raw', '0x30', '0x30', '0x02', '0xff', speed]
     process = subprocess.run(cmd_set_fan_speed, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
     if process.returncode > 0:
