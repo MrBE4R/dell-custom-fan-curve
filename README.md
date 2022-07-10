@@ -32,10 +32,10 @@ $EDITOR /opt/dell-custom-fan-curve/config.ini
 ```
 * Install service and start it
 ```bash
-cp /opt/dell-custom-fan-curve/dell-custom-fan-curve.services /usr/lib/systemd/system/dell-custom-fan-curve.services
+cp /opt/dell-custom-fan-curve/dell-custom-fan-curve.service /usr/lib/systemd/system/dell-custom-fan-curve.services
 systemctl daemon-reload
-systemctl enable --now dell-custom-fan-curve.services
-systemctl status dell-custom-fan-curve.services
+systemctl enable --now dell-custom-fan-curve.service
+systemctl status dell-custom-fan-curve.service
 ```
 
 ## Built With
