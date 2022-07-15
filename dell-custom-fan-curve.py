@@ -52,7 +52,7 @@ while True:
     logging.info('Done.')
 
     logging.info('Retrieving disks temp')
-    for d in config['DRIVE']['max_temp'].split(','):
+    for d in config['DRIVE']['list'].split(','):
         drive = '/dev/%(drive)s' % { 'drive': str(d) }
         cmd_get_drive_temp = ' | '.join([' '.join(['/usr/sbin/smartctl', '-A', drive, '-d', 'megaraid,0']), ' '.join(['grep', '"Current Drive Temperature"'])])
         process = subprocess.run(cmd_get_drive_temp, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True, shell=True)
@@ -61,6 +61,7 @@ while True:
             exit(process.returncode)
         for lines in list(filter(None,process.stdout.split('\n'))):
             _disk_temp = int(lines.split(':')[1].strip().split(' ')[0])
+            logging.info('Drive %(drive)s is at %(disk_temp)s °C.' % {'drive': drive, 'disk_temp': _disk_temp})
         if _disk_temp > disk_temp:
             disk_temp = _disk_temp
     logging.info('Done.')
