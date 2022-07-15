@@ -54,7 +54,7 @@ while True:
     logging.info('Retrieving disks temp')
     for d in config['DRIVE']['list'].split(','):
         drive = '/dev/%(drive)s' % { 'drive': str(d) }
-        if int(config['DRIVE']['jbod']) = 1:
+        if int(config['DRIVE']['jbod']) == 1:
             cmd_get_drive_temp = ' | '.join([' '.join(['/usr/sbin/smartctl', '-A', drive]), ' '.join(['grep', '"Current Drive Temperature"'])])
         else:
             cmd_get_drive_temp = ' | '.join([' '.join(['/usr/sbin/smartctl', '-A', drive, '-d', 'megaraid,0']), ' '.join(['grep', '"Current Drive Temperature"'])])
