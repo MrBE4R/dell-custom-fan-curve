@@ -17,4 +17,5 @@ default = 20
 ; This is used to temporarly override fan speed if drive temp is too high
 ; Format is Drive name (eg. sda) = Max temp (default 50 °C)
 list = sda,sdb,sdc,sdd
+jbod = 1
 max_temp = 50
