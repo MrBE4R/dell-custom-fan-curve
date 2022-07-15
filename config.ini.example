@@ -6,13 +6,15 @@ Password = admin
 [FANCONTROL]
 ; Format is Temp = Speed Percentage
 default = 20
-40 = 20
-45 = 30
+40 = 25
+45 = 35
 50 = 40
+55 = 60
 60 = 80
 70 = 95
 
 [DRIVE]
 ; This is used to temporarly override fan speed if drive temp is too high
 ; Format is Drive name (eg. sda) = Max temp (default 50 °C)
-sda = 50
+list = sda,sdb,sdc,sdd
+max_temp = 50

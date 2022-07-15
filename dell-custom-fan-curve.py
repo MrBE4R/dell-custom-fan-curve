@@ -20,8 +20,7 @@ for key in config['FANCONTROL']:
     if key != 'default':
         curve.append((int(key),int(config['FANCONTROL'][key])))
 
-drive = '/dev/%(drive)s' % { 'drive': str([x for x in config['DRIVE'].keys()][0]) }
-max_disk_temp = int(config['DRIVE'][drive.split('/')[2]])
+max_disk_temp = int(config['DRIVE']['max_temp'])
 logging.info('Done.')
 
 logging.info('Enabling manual fan mode')
@@ -52,14 +51,18 @@ while True:
     sys_temp = max_temp
     logging.info('Done.')
 
-    logging.info('Retrieving disk temp')
-    cmd_get_drive_temp = ' | '.join([' '.join(['/usr/sbin/smartctl', '-A', drive, '-d', 'megaraid,0']), ' '.join(['grep', '"Current Drive Temperature"'])])
-    process = subprocess.run(cmd_get_drive_temp, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True, shell=True)
-    if process.returncode > 0:
-        logging.error(process.stderr)
-        exit(process.returncode)
-    for lines in list(filter(None,process.stdout.split('\n'))):
-        disk_temp = int(lines.split(':')[1].strip().split(' ')[0])
+    logging.info('Retrieving disks temp')
+    for d in config['DRIVE']['max_temp'].split(','):
+        drive = '/dev/%(drive)s' % { 'drive': str(d) }
+        cmd_get_drive_temp = ' | '.join([' '.join(['/usr/sbin/smartctl', '-A', drive, '-d', 'megaraid,0']), ' '.join(['grep', '"Current Drive Temperature"'])])
+        process = subprocess.run(cmd_get_drive_temp, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True, shell=True)
+        if process.returncode > 0:
+            logging.error(process.stderr)
+            exit(process.returncode)
+        for lines in list(filter(None,process.stdout.split('\n'))):
+            _disk_temp = int(lines.split(':')[1].strip().split(' ')[0])
+        if _disk_temp > disk_temp:
+            disk_temp = _disk_temp
     logging.info('Done.')
 
     logging.info('Checking all temps')
